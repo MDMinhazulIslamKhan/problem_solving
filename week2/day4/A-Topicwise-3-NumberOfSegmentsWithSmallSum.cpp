@@ -4,29 +4,35 @@ using namespace std;
 
 int main()
 {
-    int n, s;
+    int n;
+    long long int s;
     cin >> n >> s;
     int arr[n];
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
     }
-    int l = 0, r = 0, sum = 0, ans = 0;
+    long long int l = 0, r = 0, sum = 0, ans = 0;
 
     while (r < n)
     {
         sum += arr[r];
-        if (sum > s)
+        if (sum <= s)
         {
-            sum -= arr[l];
-            l++;
+            ans += (r - l + 1);
         }
-        else if (r - l > 0)
+        else
         {
-            int count = ((r - l + 1) * (r - l + 1 + 1)) / 2;
-            ans += count;
+            while (sum > s && l < r)
+            {
+                sum -= arr[l];
+                l++;
+            }
+            if (sum <= s)
+            {
+                ans += (r - l + 1);
+            }
         }
-
         r++;
     }
     cout << ans;
