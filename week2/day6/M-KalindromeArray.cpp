@@ -1,5 +1,3 @@
-// unsolved
-
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -13,77 +11,64 @@ int main()
         int n;
         cin >> n;
         int arr[n];
+        set<int> mySet;
+
         for (int j = 0; j < n; j++)
         {
             cin >> arr[j];
+            mySet.insert(arr[j]);
         }
-        int l = 0, r = n - 1, remove = -1;
-        bool lFlag = true, rFlag = true;
-        while (l < r && l < n && r >= 0)
+
+        int l = 0, r = n - 1;
+        bool flag = true;
+        while (l <= r)
         {
-            if (arr[l] == arr[r])
+            if (arr[l] != arr[r])
             {
-                l++;
-                r--;
+                flag = false;
+                break;
             }
-            else
-            {
-                if (remove == -1)
-                {
-                    remove = arr[l];
-                    l++;
-                }
-                else if (remove == arr[l])
-                {
-                    l++;
-                }
-                else if (remove == arr[r])
-                {
-                    r++;
-                }
-                else
-                {
-                    lFlag = false;
-                    break;
-                }
-            }
+            l++;
+            r--;
         }
-        if (lFlag)
+        if (flag)
         {
             cout << "YES" << endl;
             continue;
         }
-        l = 0, r = n - 1, remove = -1;
-        while (l < r && l < n && r >= 0)
+
+        for (auto a : mySet)
         {
-            if (arr[l] == arr[r])
+            l = 0, r = n - 1;
+            while (l <= r)
             {
-                l++;
-                r--;
-            }
-            else
-            {
-                if (remove == -1)
+                if (l >= r)
                 {
-                    remove = arr[r];
-                    r++;
+                    flag = true;
+                    break;
                 }
-                else if (remove == arr[r])
+                if (arr[l] == arr[r])
                 {
-                    r++;
+                    l++;
+                    r--;
+                    continue;
                 }
-                else if (remove == arr[l])
+
+                if (arr[l] == a)
                 {
                     l++;
                 }
+                else if (arr[r] == a)
+                {
+                    r--;
+                }
                 else
                 {
-                    rFlag = false;
                     break;
                 }
             }
         }
-        if (rFlag)
+        if (flag)
         {
             cout << "YES" << endl;
         }
