@@ -24,8 +24,8 @@ int main()
     {
         long long int n;
         cin >> n;
-
-        if (sqrt(n) * sqrt(n) == n && isPrime(sqrt(n))) {
+        long long int root = sqrt(n);
+        if (root * root == n && isPrime(root)) {
             cout << "YES" << endl;
         }
         else {
